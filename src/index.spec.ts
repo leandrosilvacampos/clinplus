@@ -1,4 +1,4 @@
-import { Person } from '.';
+import { Person } from '@/index';
 
 it('should should sum', () => {
     const person = new Person();
