@@ -1,1 +1,5 @@
-console.log('Hello World! v3');
+export class Person {
+    sayHello() {
+        return 'Hello, world!';
+    }
+}

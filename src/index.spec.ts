@@ -1,3 +1,7 @@
+import { Person } from '.';
+
 it('should should sum', () => {
-    expect(1 + 1).toBe(2);
+    const person = new Person();
+
+    expect(person.sayHello()).toBe('Hello, world!');
 });
