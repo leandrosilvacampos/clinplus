@@ -4,16 +4,7 @@ services:
         container_name: clin_plus_api
         build:
             context: .
-            dockerfile: Dockerfile.dev
-            args:
-                DOCKER_BUILDKIT: 1
-
-        deploy:
-            resources:
-                limits:
-                    memory: 4096M
-                reservations:
-                    memory: 2048M
+            dockerfile: Dockerfile
         restart: unless-stopped
         ports:
             - '3000:3000'
