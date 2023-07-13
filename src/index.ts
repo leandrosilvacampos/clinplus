@@ -1,5 +1,1 @@
-export class Person {
-    sayHello() {
-        return 'Hello, world!';
-    }
-}
+console.log('Hello World!');

@@ -16,13 +16,9 @@ services:
         container_name: mysql
         image: mysql:8.0.32
         restart: unless-stopped
-        command:
-            [
-                '--default-authentication-plugin=mysql_native_password',
-                '--sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION',
-            ]
+        command: ['--default-authentication-plugin=mysql_native_password']
         ports:
-            - '${DATABASE_EXTERNAL_PORT}:3306'
+            - '3306:3306'
         volumes:
             - clin_plus_db_data:/var/lib/mysql
         environment:
