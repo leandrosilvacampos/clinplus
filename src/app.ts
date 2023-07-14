@@ -1,6 +1,6 @@
 import express from 'express';
 import { Request, Response } from 'express';
-import { dataSource } from './database/config';
+import { dataSource } from './database/config/connection';
 
 const PORT: number = 3000;
 
