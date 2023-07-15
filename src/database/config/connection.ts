@@ -7,7 +7,7 @@ export const dataSource = new DataSource({
     username: 'root',
     password: '',
     database: 'clinplus',
-    entities: ['src/database/entitySchemas/*.ts'],
+    entities: ['src/database/entities/*.ts'],
     logging: true,
     synchronize: true,
 });

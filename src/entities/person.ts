@@ -1,7 +1,6 @@
-import { IUser } from './user.interface';
+import { IEntity } from './entity';
 
-export interface IPerson {
-    id: number;
+export interface IPersonProps {
     name?: string | null;
     companyName?: string | null;
     fantasyName?: string | null;
@@ -18,5 +17,10 @@ export interface IPerson {
     district: string;
     crm?: string | null;
     observations?: string | null;
-    user?: IUser;
+}
+
+export class Person extends IEntity<IPersonProps> {
+    constructor(props: IPersonProps, id?: number) {
+        super(props, id);
+    }
 }
