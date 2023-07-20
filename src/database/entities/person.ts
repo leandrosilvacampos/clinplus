@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { BaseEntity } from './base';
+import { RoleEntity } from './role';
 
 @Entity('person')
 export class PersonEntity extends BaseEntity {
@@ -50,4 +51,8 @@ export class PersonEntity extends BaseEntity {
 
     @Column()
     observations: string;
+
+    @ManyToMany(() => RoleEntity)
+    @JoinTable({ name: 'personRole' })
+    roles: RoleEntity[];
 }

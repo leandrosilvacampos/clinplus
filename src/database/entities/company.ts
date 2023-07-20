@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base';
+import { ProcedureEntity } from './procedure';
 
 @Entity('company')
 export class CompanyEntity extends BaseEntity {
@@ -38,4 +39,7 @@ export class CompanyEntity extends BaseEntity {
 
     @OneToMany(() => CompanyEntity, (company) => company.parentCompany)
     subsidiaries: CompanyEntity[];
+
+    @OneToMany(() => ProcedureEntity, (procedure) => procedure.company)
+    procedures: ProcedureEntity[];
 }

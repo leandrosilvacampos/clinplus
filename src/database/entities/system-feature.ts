@@ -3,7 +3,7 @@ import { BaseEntity } from './base';
 import { Column, Entity } from 'typeorm';
 
 @Entity('systemFeature')
-export class UserEntity extends BaseEntity {
+export class SystemFeatureEntity extends BaseEntity {
     @Column()
     name: string;
 
