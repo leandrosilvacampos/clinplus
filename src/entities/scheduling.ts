@@ -1,12 +1,18 @@
+import { Agreement } from './agreement';
+import { Company } from './company';
+import { Doctor } from './doctor';
 import { IEntity } from './entity';
+import { Patient } from './patient';
 import { Procedure } from './procedure';
 
 export interface ISchedulingProps {
     startDate: Date;
     endDate: Date;
     procedures: Procedure[];
-    agreement: unknown;
-    company: unknown;
+    agreement: Agreement;
+    company: Company;
+    doctor: Doctor;
+    patient: Patient;
 }
 
 export class Scheduling extends IEntity<ISchedulingProps> {

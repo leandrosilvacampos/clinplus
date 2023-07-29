@@ -15,8 +15,6 @@ export interface IPersonProps {
     state: string;
     zipCode: string;
     district: string;
-    crm?: string | null;
-    observations?: string | null;
 }
 
 export class Person extends IEntity<IPersonProps> {
