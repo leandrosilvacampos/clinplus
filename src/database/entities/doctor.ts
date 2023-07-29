@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 import { BaseEntity } from './base';
 import { PersonEntity } from './person';
 import { SchedulingEntity } from './scheduling';
+import { SpecialtyEntity } from './specialty';
 
 @Entity('doctor')
 export class DoctorEntity extends BaseEntity {
@@ -14,4 +15,7 @@ export class DoctorEntity extends BaseEntity {
 
     @OneToMany(() => SchedulingEntity, (scheduling) => scheduling.doctor)
     schedules: SchedulingEntity[];
+
+    @ManyToOne(() => SpecialtyEntity, (specialty) => specialty.doctors)
+    specialty: SpecialtyEntity;
 }

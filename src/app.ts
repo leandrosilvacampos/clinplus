@@ -1,8 +1,10 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import { dataSource } from './database/config/connection';
+import apiConfig from './config/api.json';
 
-const PORT: number = 3000;
+//Routes import
+import scheduleRouter from './routes/schedules';
 
 dataSource
     .initialize()
@@ -17,10 +19,12 @@ const app = express();
 
 app.use(express.json());
 
+app.use('/schedules', scheduleRouter);
+
 app.get('/', function (req: Request, res: Response) {
     res.json({ ip: req.ip, message: 'Hello World' });
 });
 
-app.listen(PORT, () => {
-    console.log('SERVER IS UP ON PORT:', PORT);
+app.listen(apiConfig.port, () => {
+    console.log('SERVER IS UP ON PORT:', apiConfig.port);
 });

@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base';
 import { ProcedureEntity } from './procedure';
-import { ExamModalityEntity } from './exam-modality';
-import { SpecialtyEntity } from './specialty';
 import { SchedulingEntity } from './scheduling';
+import { PersonEntity } from './person';
+import { AgreementEntity } from './agreement';
 
 @Entity('company')
 export class CompanyEntity extends BaseEntity {
@@ -13,13 +13,13 @@ export class CompanyEntity extends BaseEntity {
     @Column()
     fantasyName: string;
 
-    @Column()
+    @Column({ nullable: true })
     email: string;
 
-    @Column()
+    @Column({ nullable: true })
     phone: string;
 
-    @Column()
+    @Column({ nullable: true })
     cellPhone: string;
 
     @Column()
@@ -46,12 +46,12 @@ export class CompanyEntity extends BaseEntity {
     @OneToMany(() => ProcedureEntity, (procedure) => procedure.company)
     procedures: ProcedureEntity[];
 
-    @OneToMany(() => ExamModalityEntity, (examModality) => examModality.company)
-    examModalities: ExamModalityEntity[];
-
-    @OneToMany(() => SpecialtyEntity, (specialty) => specialty.company)
-    specialties: SpecialtyEntity[];
-
     @OneToMany(() => SchedulingEntity, (scheduling) => scheduling.company)
     schedules: SchedulingEntity[];
+
+    @OneToMany(() => PersonEntity, (person) => person.company)
+    people: PersonEntity[];
+
+    @OneToMany(() => AgreementEntity, (agreement) => agreement.company)
+    agreements: AgreementEntity[];
 }

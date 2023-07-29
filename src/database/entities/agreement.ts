@@ -17,7 +17,7 @@ export class AgreementEntity extends BaseEntity {
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     discountValue: number;
 
-    @ManyToOne(() => CompanyEntity, (company) => company.examModalities)
+    @ManyToOne(() => CompanyEntity, (company) => company.agreements)
     company: CompanyEntity;
 
     @OneToMany(() => SchedulingEntity, (scheduling) => scheduling.agreement)

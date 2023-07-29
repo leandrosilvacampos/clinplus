@@ -1,25 +1,26 @@
-import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 import { BaseEntity } from './base';
 import { RoleEntity } from './role';
+import { CompanyEntity } from './company';
 
 @Entity('person')
 export class PersonEntity extends BaseEntity {
-    @Column()
+    @Column({ nullable: true })
     name: string;
 
-    @Column()
+    @Column({ nullable: true })
     companyName: string;
 
-    @Column()
+    @Column({ nullable: true })
     fantasyName: string;
 
-    @Column()
+    @Column({ type: 'enum', enum: ['individual', 'company'] })
     type: 'individual' | 'company';
 
-    @Column()
+    @Column({ nullable: true, type: 'date' })
     dateOfBirth: string;
 
-    @Column()
+    @Column({ type: 'enum', enum: ['male', 'female', 'other'], nullable: true })
     gender: 'male' | 'female' | 'other';
 
     @Column()
@@ -28,25 +29,28 @@ export class PersonEntity extends BaseEntity {
     @Column()
     email: string;
 
-    @Column()
+    @Column({ nullable: true })
     cellPhone: string;
 
-    @Column()
+    @Column({ nullable: true })
     streetAddress: string;
 
-    @Column()
+    @Column({ nullable: true })
     city: string;
 
-    @Column()
+    @Column({ nullable: true })
     state: string;
 
-    @Column()
+    @Column({ nullable: true })
     zipCode: string;
 
-    @Column()
+    @Column({ nullable: true })
     district: string;
 
     @ManyToMany(() => RoleEntity)
     @JoinTable({ name: 'personRole' })
     roles: RoleEntity[];
+
+    @ManyToOne(() => CompanyEntity, (company) => company.people)
+    company: CompanyEntity;
 }

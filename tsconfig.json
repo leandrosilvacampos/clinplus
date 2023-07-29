@@ -9,6 +9,7 @@
         "module": "commonjs",
         "rootDir": "./src",
         "moduleResolution": "Node",
+        "resolveJsonModule": true,
         "paths": {
             "@/*": ["*"]
         },
