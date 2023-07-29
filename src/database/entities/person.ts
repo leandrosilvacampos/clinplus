@@ -46,12 +46,6 @@ export class PersonEntity extends BaseEntity {
     @Column()
     district: string;
 
-    @Column()
-    crm: string;
-
-    @Column()
-    observations: string;
-
     @ManyToMany(() => RoleEntity)
     @JoinTable({ name: 'personRole' })
     roles: RoleEntity[];

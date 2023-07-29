@@ -1,6 +1,9 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base';
 import { ProcedureEntity } from './procedure';
+import { ExamModalityEntity } from './exam-modality';
+import { SpecialtyEntity } from './specialty';
+import { SchedulingEntity } from './scheduling';
 
 @Entity('company')
 export class CompanyEntity extends BaseEntity {
@@ -42,4 +45,13 @@ export class CompanyEntity extends BaseEntity {
 
     @OneToMany(() => ProcedureEntity, (procedure) => procedure.company)
     procedures: ProcedureEntity[];
+
+    @OneToMany(() => ExamModalityEntity, (examModality) => examModality.company)
+    examModalities: ExamModalityEntity[];
+
+    @OneToMany(() => SpecialtyEntity, (specialty) => specialty.company)
+    specialties: SpecialtyEntity[];
+
+    @OneToMany(() => SchedulingEntity, (scheduling) => scheduling.company)
+    schedules: SchedulingEntity[];
 }
