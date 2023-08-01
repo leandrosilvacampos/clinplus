@@ -1,9 +1,10 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base';
 import { ProcedureEntity } from './procedure';
 import { SchedulingEntity } from './scheduling';
 import { PersonEntity } from './person';
 import { AgreementEntity } from './agreement';
+import { PaymentMethodEntity } from './payment-method';
 
 @Entity('company')
 export class CompanyEntity extends BaseEntity {
@@ -36,6 +37,10 @@ export class CompanyEntity extends BaseEntity {
 
     @Column()
     district: string;
+
+    @ManyToMany(() => PaymentMethodEntity)
+    @JoinTable({ name: 'companyPaymentMethod' })
+    paymentMethods: PaymentMethodEntity[];
 
     @ManyToOne(() => CompanyEntity, (company) => company.subsidiaries)
     parentCompany: CompanyEntity;
