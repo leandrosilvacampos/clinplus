@@ -1,8 +1,8 @@
 import crypto from 'crypto';
 
-export abstract class IEntity<T> {
+export abstract class Entity<T> {
     protected _id: number | string;
-    private props: T;
+    protected props: T;
 
     constructor(props: T, id?: number | string) {
         this._id = id || crypto.randomUUID();

@@ -1,14 +1,18 @@
-import { Controller } from '@/interfaces/controller';
-import { Request, Response } from 'express';
+import { IController } from '@/shared/interfaces/controller';
+import { IRequest } from '@/shared/interfaces/request';
+import { IResponse } from '@/shared/interfaces/response';
 
-export class CreateScheduleController implements Controller {
-    async handle(req: Request, res: Response): Promise<void> {
+export class CreateScheduleController implements IController {
+    async handle(req: IRequest): Promise<IResponse> {
         try {
             console.log('Teste: ', 'Teste');
 
-            res.json({ ...req.body });
+            return { body: req.body };
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            return {
+                status: 500,
+                body: 'Internal Server Error',
+            };
         }
     }
 }

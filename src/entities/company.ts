@@ -1,4 +1,4 @@
-import { IEntity } from './entity';
+import { Entity } from './entity';
 import { Procedure } from './procedure';
 import { Scheduling } from './scheduling';
 
@@ -19,8 +19,16 @@ export interface ICompanyProps {
     schedules?: Scheduling[];
 }
 
-export class Company extends IEntity<ICompanyProps> {
+export class Company extends Entity<ICompanyProps> {
     constructor(props: ICompanyProps, id?: number) {
         super(props, id);
+    }
+
+    get fantasyName(): string {
+        return this.props.fantasyName;
+    }
+
+    get companyName(): string {
+        return this.props.companyName;
     }
 }

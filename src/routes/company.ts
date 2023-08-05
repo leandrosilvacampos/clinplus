@@ -1,10 +1,11 @@
-import { ReadAvailableCompanyHoursController } from '@/controllers/company/read-available-company-hours';
-import { ReadCompaniesController } from '@/controllers/company/read-companies';
+import { adaptRoute } from '@/adapters/express-route';
+import { makeReadAvailableCompanyHoursController } from '@/factories/controllers/read-available-company-hours';
+import { makeReadCompaniesController } from '@/factories/controllers/read-companies';
 import express from 'express';
 const router = express.Router();
 
-router.get('/', new ReadCompaniesController().handle);
+router.get('/', adaptRoute(makeReadCompaniesController()));
 
-router.get('/:id/available-hours', new ReadAvailableCompanyHoursController().handle);
+router.get('/:id/available-hours', adaptRoute(makeReadAvailableCompanyHoursController()));
 
 export default router;

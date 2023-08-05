@@ -1,4 +1,4 @@
-import { IEntity } from './entity';
+import { Entity } from './entity';
 import { Scheduling } from './scheduling';
 
 export interface IProcedureProps {
@@ -11,7 +11,7 @@ export interface IProcedureProps {
     schedules: Scheduling[];
 }
 
-export class Procedure extends IEntity<IProcedureProps> {
+export class Procedure extends Entity<IProcedureProps> {
     constructor(props: IProcedureProps, id?: number) {
         super(props, id);
     }

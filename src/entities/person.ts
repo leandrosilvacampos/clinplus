@@ -1,4 +1,4 @@
-import { IEntity } from './entity';
+import { Entity } from './entity';
 
 export interface IPersonProps {
     name?: string | null;
@@ -17,7 +17,7 @@ export interface IPersonProps {
     district: string;
 }
 
-export class Person extends IEntity<IPersonProps> {
+export class Person extends Entity<IPersonProps> {
     constructor(props: IPersonProps, id?: number) {
         super(props, id);
     }

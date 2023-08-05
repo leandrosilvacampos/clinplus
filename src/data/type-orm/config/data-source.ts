@@ -1,3 +1,4 @@
+import path from 'path';
 import { DataSource } from 'typeorm';
 
 export const dataSource = new DataSource({
@@ -7,7 +8,7 @@ export const dataSource = new DataSource({
     username: 'root',
     password: '',
     database: 'clinplus',
-    entities: ['src/database/entities/*.ts'],
+    entities: [path.join(__dirname, '..', 'entities/*.ts')],
     logging: true,
     synchronize: true,
 });

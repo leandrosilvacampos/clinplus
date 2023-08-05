@@ -1,18 +1,23 @@
-import { dataSource } from '@/database/config/connection';
-import { PaymentMethodEntity } from '@/database/entities/payment-method';
-import { Controller } from '@/interfaces/controller';
-import { Request, Response } from 'express';
+import { dataSource } from '@/data/type-orm/config/data-source';
+import { PaymentMethodEntity } from '@/data/type-orm/entities/payment-method';
+import { IController } from '@/shared/interfaces/controller';
+import { IRequest } from '@/shared/interfaces/request';
+import { IResponse } from '@/shared/interfaces/response';
 
-export class ReadPaymentMethodsController implements Controller {
-    async handle(req: Request, res: Response): Promise<void> {
+export class ReadPaymentMethodsController implements IController {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async handle(req: IRequest): Promise<IResponse> {
         try {
             const paymentMethodRepository = dataSource.getRepository(PaymentMethodEntity);
 
             const paymentMethods = await paymentMethodRepository.find();
 
-            res.json(paymentMethods);
+            return { body: paymentMethods };
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            return {
+                status: 500,
+                body: 'Internal Server Error',
+            };
         }
     }
 }

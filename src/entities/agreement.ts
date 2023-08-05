@@ -1,4 +1,4 @@
-import { IEntity } from './entity';
+import { Entity } from './entity';
 import { Scheduling } from './scheduling';
 
 export interface IAgreementProps {
@@ -9,7 +9,7 @@ export interface IAgreementProps {
     schedules: Scheduling[];
 }
 
-export class Agreement extends IEntity<IAgreementProps> {
+export class Agreement extends Entity<IAgreementProps> {
     constructor(props: IAgreementProps, id?: number) {
         super(props, id);
     }

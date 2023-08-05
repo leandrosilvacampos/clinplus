@@ -1,16 +1,33 @@
-import { Controller } from '@/interfaces/controller';
-import { CompanyRepository } from '@/repositories/company';
-import { Request, Response } from 'express';
+import { IController } from '@/shared/interfaces/controller';
+import { IRequest } from '@/shared/interfaces/request';
+import { IResponse } from '@/shared/interfaces/response';
+import { ICompanyRepository } from '@/repositories/company';
+import { Company } from '@/entities/company';
+import { ICompanyDTO } from '@/dtos/company';
 
-export class ReadCompaniesController implements Controller {
-    async handle(req: Request, res: Response): Promise<void> {
+export class ReadCompaniesController implements IController {
+    constructor(private readonly _companyRepository: ICompanyRepository) {}
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async handle(req: IRequest): Promise<IResponse> {
         try {
-            const companyRepository = new CompanyRepository();
-            const companies = await companyRepository.find();
+            const companies: Company[] = await this._companyRepository.find();
 
-            res.json(companies);
+            const mappedCompanies: ICompanyDTO[] = companies.map((company: Company) => ({
+                id: company.id as number,
+                fantasyName: company.fantasyName,
+                companyName: company.companyName,
+            }));
+
+            return {
+                status: 200,
+                body: mappedCompanies,
+            };
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            return {
+                status: 500,
+                body: 'Internal Server Error',
+            };
         }
     }
 }

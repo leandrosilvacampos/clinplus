@@ -1,4 +1,4 @@
-import { EHttpVerb } from '@/shared/enums';
+import { EHttpVerb } from '@/shared/enums/http-verb';
 import { BaseEntity } from './base';
 import { Column, Entity } from 'typeorm';
 

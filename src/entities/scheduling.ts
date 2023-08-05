@@ -1,7 +1,7 @@
 import { Agreement } from './agreement';
 import { Company } from './company';
 import { Doctor } from './doctor';
-import { IEntity } from './entity';
+import { Entity } from './entity';
 import { Patient } from './patient';
 import { Procedure } from './procedure';
 
@@ -15,7 +15,7 @@ export interface ISchedulingProps {
     patient: Patient;
 }
 
-export class Scheduling extends IEntity<ISchedulingProps> {
+export class Scheduling extends Entity<ISchedulingProps> {
     constructor(props: ISchedulingProps, id?: number) {
         super(props, id);
     }

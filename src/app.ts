@@ -1,6 +1,6 @@
 import express from 'express';
 import { Request, Response } from 'express';
-import { dataSource } from './database/config/connection';
+import { dataSource } from './data/type-orm/config/data-source';
 import apiConfig from './config/api.json';
 import cors from 'cors';
 

@@ -1,18 +1,23 @@
-import { dataSource } from '@/database/config/connection';
-import { AgreementEntity } from '@/database/entities/agreement';
-import { Controller } from '@/interfaces/controller';
-import { Request, Response } from 'express';
+import { dataSource } from '@/data/type-orm/config/data-source';
+import { AgreementEntity } from '@/data/type-orm/entities/agreement';
+import { IController } from '@/shared/interfaces/controller';
+import { IRequest } from '@/shared/interfaces/request';
+import { IResponse } from '@/shared/interfaces/response';
 
-export class ReadAgreementsController implements Controller {
-    async handle(req: Request, res: Response): Promise<void> {
+export class ReadAgreementsController implements IController {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async handle(req: IRequest): Promise<IResponse> {
         try {
             const agreementRepository = dataSource.getRepository(AgreementEntity);
 
             const agreements = await agreementRepository.find();
 
-            res.json(agreements);
+            return { body: agreements };
         } catch (error) {
-            res.status(500).send('Internal Server Error');
+            return {
+                status: 500,
+                body: 'Internal Server Error',
+            };
         }
     }
 }
