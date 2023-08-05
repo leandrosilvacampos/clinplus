@@ -1,4 +1,4 @@
-import { ReadAgreementsController } from '@/controllers/read-agreements';
+import { ReadAgreementsController } from '@/controllers/agreement/read-agreements';
 import express from 'express';
 const router = express.Router();
 

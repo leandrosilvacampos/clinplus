@@ -5,10 +5,10 @@ import apiConfig from './config/api.json';
 import cors from 'cors';
 
 //Routes import
-import agreementRouter from './routes/agreements';
-import companyRouter from './routes/companies';
-import paymentMethodRouter from './routes/payment-methods';
-import scheduleRouter from './routes/schedules';
+import agreementRouter from './routes/agreement';
+import companyRouter from './routes/company';
+import paymentMethodRouter from './routes/payment-method';
+import scheduleRouter from './routes/schedule';
 
 dataSource
     .initialize()

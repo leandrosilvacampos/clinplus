@@ -1,4 +1,4 @@
-import { CreateScheduleController } from '@/controllers/create-schedule';
+import { CreateScheduleController } from '@/controllers/schedule/create-schedule';
 import express from 'express';
 const router = express.Router();
 
