@@ -3,7 +3,7 @@ import { IRequest } from '@/shared/interfaces/request';
 import { IResponse } from '@/shared/interfaces/response';
 import { ICompanyRepository } from '@/repositories/company';
 import { Company } from '@/entities/company';
-import { ICompanyDTO } from '@/dtos/company';
+import { ICompanyDTO } from '@/data/dtos/company';
 
 export class ReadCompaniesController implements IController {
     constructor(private readonly _companyRepository: ICompanyRepository) {}
