@@ -2,8 +2,12 @@ import express from 'express';
 import { Request, Response } from 'express';
 import { dataSource } from './database/config/connection';
 import apiConfig from './config/api.json';
+import cors from 'cors';
 
 //Routes import
+import agreementRouter from './routes/agreements';
+import companyRouter from './routes/companies';
+import paymentMethodRouter from './routes/payment-methods';
 import scheduleRouter from './routes/schedules';
 
 dataSource
@@ -17,8 +21,13 @@ dataSource
 
 const app = express();
 
+app.use(cors());
+
 app.use(express.json());
 
+app.use('/agreements', agreementRouter);
+app.use('/companies', companyRouter);
+app.use('/payment-methods', paymentMethodRouter);
 app.use('/schedules', scheduleRouter);
 
 app.get('/', function (req: Request, res: Response) {

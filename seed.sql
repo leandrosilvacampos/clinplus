@@ -1,3 +1,25 @@
+-- Especialties
+INSERT INTO
+    specialty (id, name)
+VALUES
+    (1, 'Clínico geral');
+
+-- PaymentMethods
+INSERT INTO
+    clinplus.paymentMethod (id, name)
+VALUES
+    (1, 'Dinheiro');
+
+INSERT INTO
+    clinplus.paymentMethod (id, name)
+VALUES
+    (2, 'Cartão de crédito');
+
+INSERT INTO
+    clinplus.paymentMethod (id, name)
+VALUES
+    (3, 'Cartão de débito');
+
 --Company
 INSERT INTO
     company (
@@ -31,12 +53,6 @@ INSERT INTO
     agreement (id, name, discountType, discountValue, companyId)
 VALUES
     (1, NULL, 'Particular', 'absolute', 0.00, 1);
-
--- Especialties
-INSERT INTO
-    specialty (id, name)
-VALUES
-    (1, 'Clínico geral');
 
 -- Roles
 INSERT INTO
