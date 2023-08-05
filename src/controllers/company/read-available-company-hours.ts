@@ -1,13 +1,16 @@
 import { Controller } from '@/interfaces/controller';
+import { ReadAvailableCompanyHoursUseCase } from '@/use-cases/read-available-company-hours';
 import { Request, Response } from 'express';
 
 export class ReadAvailableCompanyHoursController implements Controller {
     async handle(req: Request, res: Response): Promise<void> {
         try {
-            console.log('Date: ' + req.query.date);
-            console.log('Company ID: ' + req.params.id);
+            const id = Number(req.params.id);
+            const date = req.query.date as string;
 
-            res.json(['13:00 - 13:45', '13:45 - 14:30']);
+            const availableHours = await new ReadAvailableCompanyHoursUseCase().execute(id, date);
+
+            res.json(availableHours);
         } catch (error) {
             res.status(500).send('Internal Server Error');
         }
