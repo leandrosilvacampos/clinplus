@@ -1,3 +1,10 @@
 export interface IReadAvailableCompanyHoursUseCase {
-    execute(companyId: number, scheduleDate: string, procedureId: number): Promise<string[]>;
+    execute(params: IReadAvailableCompanyHoursUseCaseParams): Promise<string[]>;
+}
+
+export interface IReadAvailableCompanyHoursUseCaseParams {
+    companyId: number;
+    procedureId: number;
+    scheduleDate: string;
+    timezone: string;
 }

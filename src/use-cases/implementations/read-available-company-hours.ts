@@ -1,9 +1,10 @@
 import { ISchedulingRepository } from '@/repositories/scheduling';
-import { IReadAvailableCompanyHoursUseCase } from '../read-available-company-hours';
+import { IReadAvailableCompanyHoursUseCase, IReadAvailableCompanyHoursUseCaseParams } from '../read-available-company-hours';
 import { IProcedureRepository } from '@/repositories/procedure';
 import { Scheduling } from '@/entities/scheduling';
 import { Procedure } from '@/entities/procedure';
 import { add, format, areIntervalsOverlapping } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
 
 export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHoursUseCase {
     constructor(
@@ -11,7 +12,7 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
         private readonly _schedulingRepository: ISchedulingRepository
     ) {}
 
-    async execute(companyId: number, scheduleDate: string, procedureId: number): Promise<string[]> {
+    async execute({ companyId, procedureId, scheduleDate, timezone }: IReadAvailableCompanyHoursUseCaseParams): Promise<string[]> {
         const companySchedules: Scheduling[] = await this._schedulingRepository.readByCompanyId(companyId);
         const procedure: Procedure | null = await this._procedureRepository.readById(procedureId);
 
@@ -33,10 +34,8 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
         console.log('now', now);
 
         const baseData = now < startOfWorkingHours ? startOfWorkingHours : now;
-        const baseDataWithGap = add(baseData, { minutes: gapInMinutes });
 
         console.log('baseData', baseData);
-        console.log('baseDataWithGap', baseDataWithGap);
 
         const busyIntervals: { start: Date; end: Date }[] = companySchedules.map((schedule) => ({
             start: schedule.startDate,
@@ -45,10 +44,10 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
 
         const possibleIntervals: { start: Date; end: Date }[] = [];
 
-        let lastEndDate = baseDataWithGap;
+        let lastEndDate = baseData;
 
         while (lastEndDate < endOfWorkingHours) {
-            const startDate = lastEndDate;
+            const startDate = lastEndDate === baseData ? lastEndDate : add(lastEndDate, { minutes: gapInMinutes });
             const endDate = add(startDate, { minutes: procedure.durationTimeInMinutes });
 
             if (endDate > endOfWorkingHours) {
@@ -65,9 +64,11 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
             (interval) => !busyIntervals.some((busyInterval) => areIntervalsOverlapping(interval, busyInterval))
         );
 
-        const formattedAvailableIntervals = availableIntervals.map(
-            (interval) => `${format(interval.start, 'HH:mm')} - ${format(interval.end, 'HH:mm')}`
-        );
+        const formattedAvailableIntervals = availableIntervals.map((interval) => {
+            const startTime = format(utcToZonedTime(interval.start, timezone), 'HH:mm');
+            const endTime = format(utcToZonedTime(interval.end, timezone), 'HH:mm');
+            return `${startTime} - ${endTime}`;
+        });
 
         console.log('busyIntervals', busyIntervals);
         console.log('possibleIntervals', possibleIntervals);

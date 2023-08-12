@@ -52,7 +52,7 @@ describe('ReadAvailableCompanyHoursUseCase', () => {
             new Procedure(
                 {
                     name: 'Procedure 1',
-                    durationTime: 45,
+                    durationTime: 30,
                     durationTimeUnit: 'minutes',
                     type: 'consultation',
                 },
@@ -63,22 +63,22 @@ describe('ReadAvailableCompanyHoursUseCase', () => {
         vi.spyOn(schedulingRepository, 'readByCompanyId').mockResolvedValueOnce([
             new Scheduling(
                 {
-                    startDate: new Date('2023-08-12T16:15:00.000Z'),
-                    endDate: new Date('2023-08-12T17:00:00.000Z'),
+                    startDate: new Date('2023-08-12T16:00:00.000Z'),
+                    endDate: new Date('2023-08-12T16:30:00.000Z'),
                 },
                 1
             ),
             new Scheduling(
                 {
                     startDate: new Date('2023-08-12T18:30:00.000Z'),
-                    endDate: new Date('2023-08-12T19:15:00.000Z'),
+                    endDate: new Date('2023-08-12T19:00:00.000Z'),
                 },
                 1
             ),
         ]);
 
-        const result = await sut.execute(1, '2023-08-12', 1);
+        const result = await sut.execute({ companyId: 1, procedureId: 1, scheduleDate: '2023-08-12', timezone: 'UTC' });
 
-        expect(result).toEqual(['17:35 - 18:20', '19:50 - 20:35']);
+        expect(result).toEqual(['16:35 - 17:05', '17:10 - 17:40', '17:45 - 18:15', '19:30 - 20:00', '20:05 - 20:35']);
     });
 });

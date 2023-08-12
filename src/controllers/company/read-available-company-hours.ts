@@ -12,7 +12,12 @@ export class ReadAvailableCompanyHoursController implements IController {
             const date = req.query.date as string;
             const procedureId = 1;
 
-            const availableHours = await this._readAvailableCompanyHoursUseCase.execute(id, date, procedureId);
+            const availableHours = await this._readAvailableCompanyHoursUseCase.execute({
+                companyId: id,
+                scheduleDate: date,
+                procedureId,
+                timezone: 'America/Sao_Paulo',
+            });
 
             return { body: availableHours };
         } catch (error) {
