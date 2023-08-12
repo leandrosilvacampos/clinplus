@@ -8,11 +8,11 @@ import { Procedure } from './procedure';
 export interface ISchedulingProps {
     startDate: Date;
     endDate: Date;
-    procedures: Procedure[];
-    agreement: Agreement;
-    company: Company;
-    doctor: Doctor;
-    patient: Patient;
+    procedures?: Procedure[];
+    agreement?: Agreement;
+    company?: Company;
+    doctor?: Doctor;
+    patient?: Patient;
 }
 
 export class Scheduling extends Entity<ISchedulingProps> {

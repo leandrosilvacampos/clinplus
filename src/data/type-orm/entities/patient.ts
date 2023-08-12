@@ -5,7 +5,7 @@ import { SchedulingEntity } from './scheduling';
 
 @Entity('patient')
 export class PatientEntity extends BaseEntity {
-    @Column()
+    @Column({ nullable: true })
     observations: string;
 
     @OneToOne(() => PersonEntity)

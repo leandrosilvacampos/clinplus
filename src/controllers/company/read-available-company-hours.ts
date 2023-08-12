@@ -1,15 +1,18 @@
 import { IController } from '@/shared/interfaces/controller';
-import { ReadAvailableCompanyHoursUseCase } from '@/use-cases/read-available-company-hours';
 import { IRequest } from '@/shared/interfaces/request';
 import { IResponse } from '@/shared/interfaces/response';
+import { IReadAvailableCompanyHoursUseCase } from '@/use-cases/read-available-company-hours';
 
 export class ReadAvailableCompanyHoursController implements IController {
+    constructor(private readonly _readAvailableCompanyHoursUseCase: IReadAvailableCompanyHoursUseCase) {}
+
     async handle(req: IRequest): Promise<IResponse> {
         try {
             const id = Number(req.params.id);
             const date = req.query.date as string;
+            const procedureId = Number(req.query.procedureId);
 
-            const availableHours = await new ReadAvailableCompanyHoursUseCase().execute(id, date);
+            const availableHours = await this._readAvailableCompanyHoursUseCase.execute(id, date, procedureId);
 
             return { body: availableHours };
         } catch (error) {

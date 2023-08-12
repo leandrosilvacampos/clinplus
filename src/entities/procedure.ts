@@ -4,11 +4,11 @@ import { Scheduling } from './scheduling';
 export interface IProcedureProps {
     name: string;
     durationTimeUnit: 'minutes' | 'hours' | 'days';
+    durationTime: number;
     type: 'consultation' | 'exam';
-    company: unknown;
     examModality?: unknown;
-    specialty: unknown;
-    schedules: Scheduling[];
+    specialty?: unknown;
+    schedules?: Scheduling[];
 }
 
 export class Procedure extends Entity<IProcedureProps> {

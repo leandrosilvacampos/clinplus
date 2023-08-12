@@ -11,7 +11,7 @@ export class ReadCompaniesController implements IController {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async handle(req: IRequest): Promise<IResponse> {
         try {
-            const companies: Company[] = await this._companyRepository.find();
+            const companies: Company[] = await this._companyRepository.read();
 
             const mappedCompanies: ICompanyDTO[] = companies.map((company: Company) => ({
                 id: company.id as number,

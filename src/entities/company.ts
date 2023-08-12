@@ -1,4 +1,6 @@
+import { Agreement } from './agreement';
 import { Entity } from './entity';
+import { PaymentMethod } from './payment-method';
 import { Procedure } from './procedure';
 import { Scheduling } from './scheduling';
 
@@ -17,6 +19,8 @@ export interface ICompanyProps {
     subsidiaries?: Company[];
     procedures?: Procedure[];
     schedules?: Scheduling[];
+    agreements?: Agreement[];
+    paymentMethods?: PaymentMethod[];
 }
 
 export class Company extends Entity<ICompanyProps> {
@@ -30,5 +34,13 @@ export class Company extends Entity<ICompanyProps> {
 
     get companyName(): string {
         return this.props.companyName;
+    }
+
+    get agreements(): Agreement[] | undefined {
+        return this.props.agreements;
+    }
+
+    get paymentMethods(): PaymentMethod[] | undefined {
+        return this.props.paymentMethods;
     }
 }

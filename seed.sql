@@ -48,6 +48,22 @@ VALUES
         'Centro'
     );
 
+-- Company payment methods
+INSERT INTO
+    clinplus.companyPaymentMethod (companyId, paymentMethodId)
+VALUES
+    (1, 1);
+
+INSERT INTO
+    clinplus.companyPaymentMethod (companyId, paymentMethodId)
+VALUES
+    (1, 2);
+
+INSERT INTO
+    clinplus.companyPaymentMethod (companyId, paymentMethodId)
+VALUES
+    (1, 3);
+
 -- Agreements
 INSERT INTO
     agreement (id, name, discountType, discountValue, companyId)

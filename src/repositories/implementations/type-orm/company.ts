@@ -1,11 +1,12 @@
 import { dataSource } from '@/data/type-orm/config/data-source';
 import { CompanyEntity } from '@/data/type-orm/entities/company';
 import { Company } from '@/entities/company';
-import { ICompanyRepository } from '../company';
+import { ICompanyRepository } from '../../company';
+import { Repository } from 'typeorm';
 
-export class CompanyRepository implements ICompanyRepository {
-    async find(): Promise<Company[]> {
-        const companyRepository = dataSource.getRepository(CompanyEntity);
+export class TypeORMCompanyRepository implements ICompanyRepository {
+    async read(): Promise<Company[]> {
+        const companyRepository: Repository<CompanyEntity> = dataSource.getRepository(CompanyEntity);
 
         const companies = await companyRepository.find();
 
