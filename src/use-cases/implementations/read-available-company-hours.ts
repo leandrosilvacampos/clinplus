@@ -3,6 +3,7 @@ import { IReadAvailableCompanyHoursUseCase } from '../read-available-company-hou
 import { IProcedureRepository } from '@/repositories/procedure';
 import { Scheduling } from '@/entities/scheduling';
 import { Procedure } from '@/entities/procedure';
+import { add, format, areIntervalsOverlapping } from 'date-fns';
 
 export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHoursUseCase {
     constructor(
@@ -10,34 +11,76 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
         private readonly _schedulingRepository: ISchedulingRepository
     ) {}
 
-    async execute(companyId: number, date: string, procedureId: number): Promise<string[]> {
+    async execute(companyId: number, scheduleDate: string, procedureId: number): Promise<string[]> {
         const companySchedules: Scheduling[] = await this._schedulingRepository.readByCompanyId(companyId);
         const procedure: Procedure | null = await this._procedureRepository.readById(procedureId);
 
-        /**
-         * Procurar agendamentos dessa empresa nessa data e com base no tempo disponivel entre 8 e 18 horas, criar
-         * intervalos de tempo disponiveis de acordo com a duração do procedimento.
-         */
+        if (!procedure) {
+            throw new Error('Procedure not found');
+        }
 
-        //Pegar todos os agendamentos da empresa nessa data, subtrair os espaços de tempo ocupados pelos agendamentos do espaço de tempo de 08:00 as 18:00 e o que restar, gerar os intervalos de tempo disponiveis de acordo com a duração do procedimento.
+        this._checkDate(scheduleDate);
 
-        console.log('companySchedules: ', companySchedules);
-        console.log('procedure: ', procedure);
+        const now = new Date();
 
-        return [
-            '08:00 - 08:45',
-            '08:45 - 09:30',
-            '09:30 - 10:15',
-            '10:15 - 11:00',
-            '11:00 - 11:45',
-            '11:45 - 12:30',
-            '12:30 - 13:15',
-            '14:00 - 14:45',
-            '14:45 - 15:30',
-            '15:30 - 16:15',
-            '16:15 - 17:00',
-            '17:00 - 17:45',
-            '17:45 - 18:30',
-        ];
+        const startOfWorkingHours = new Date(`${scheduleDate}T11:00:00.000Z`);
+        const endOfWorkingHours = new Date(`${scheduleDate}T21:00:00.000Z`);
+
+        const gapInMinutes = 5;
+
+        console.log('startOfWorkingHours', startOfWorkingHours);
+        console.log('endOfWorkingHours', endOfWorkingHours);
+        console.log('now', now);
+
+        const baseData = now < startOfWorkingHours ? startOfWorkingHours : now;
+        const baseDataWithGap = add(baseData, { minutes: gapInMinutes });
+
+        console.log('baseData', baseData);
+        console.log('baseDataWithGap', baseDataWithGap);
+
+        const busyIntervals: { start: Date; end: Date }[] = companySchedules.map((schedule) => ({
+            start: schedule.startDate,
+            end: schedule.endDate,
+        }));
+
+        const possibleIntervals: { start: Date; end: Date }[] = [];
+
+        let lastEndDate = baseDataWithGap;
+
+        while (lastEndDate < endOfWorkingHours) {
+            const startDate = lastEndDate;
+            const endDate = add(startDate, { minutes: procedure.durationTimeInMinutes });
+
+            if (endDate > endOfWorkingHours) {
+                break;
+            }
+
+            const interval = { start: startDate, end: endDate };
+
+            possibleIntervals.push(interval);
+            lastEndDate = endDate;
+        }
+
+        const availableIntervals: { start: Date; end: Date }[] = possibleIntervals.filter(
+            (interval) => !busyIntervals.some((busyInterval) => areIntervalsOverlapping(interval, busyInterval))
+        );
+
+        const formattedAvailableIntervals = availableIntervals.map(
+            (interval) => `${format(interval.start, 'HH:mm')} - ${format(interval.end, 'HH:mm')}`
+        );
+
+        console.log('busyIntervals', busyIntervals);
+        console.log('possibleIntervals', possibleIntervals);
+        console.log('availableIntervals', availableIntervals);
+
+        return formattedAvailableIntervals;
+    }
+
+    private _checkDate(date: string): void {
+        const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+
+        if (!datePattern.test(date)) {
+            throw new Error('Date is not valid');
+        }
     }
 }

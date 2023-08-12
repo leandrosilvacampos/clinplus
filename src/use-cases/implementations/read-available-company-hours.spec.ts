@@ -1,4 +1,4 @@
-import { it, expect, vi } from 'vitest';
+import { it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { IReadAvailableCompanyHoursUseCase } from '../read-available-company-hours';
 import { ReadAvailableCompanyHoursUseCase } from './read-available-company-hours';
 import { ISchedulingRepository } from '@/repositories/scheduling';
@@ -34,8 +34,19 @@ const makeSut = (): ISut => {
 };
 
 describe('ReadAvailableCompanyHoursUseCase', () => {
+    beforeEach(() => {
+        vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+        vi.useRealTimers();
+    });
+
     it('should return available hours', async () => {
         const { sut, procedureRepository, schedulingRepository } = makeSut();
+
+        const date = new Date('2023-08-12T16:00:00.000Z');
+        vi.setSystemTime(date);
 
         vi.spyOn(procedureRepository, 'readById').mockResolvedValueOnce(
             new Procedure(
@@ -52,8 +63,15 @@ describe('ReadAvailableCompanyHoursUseCase', () => {
         vi.spyOn(schedulingRepository, 'readByCompanyId').mockResolvedValueOnce([
             new Scheduling(
                 {
-                    startDate: new Date('2023-08-12 13:15:00'),
-                    endDate: new Date('2023-08-12 14:00:00'),
+                    startDate: new Date('2023-08-12T16:15:00.000Z'),
+                    endDate: new Date('2023-08-12T17:00:00.000Z'),
+                },
+                1
+            ),
+            new Scheduling(
+                {
+                    startDate: new Date('2023-08-12T18:30:00.000Z'),
+                    endDate: new Date('2023-08-12T19:15:00.000Z'),
                 },
                 1
             ),
@@ -61,20 +79,6 @@ describe('ReadAvailableCompanyHoursUseCase', () => {
 
         const result = await sut.execute(1, '2023-08-12', 1);
 
-        expect(result).toEqual([
-            '08:00 - 08:45',
-            '08:45 - 09:30',
-            '09:30 - 10:15',
-            '10:15 - 11:00',
-            '11:00 - 11:45',
-            '11:45 - 12:30',
-            '12:30 - 13:15',
-            '14:00 - 14:45',
-            '14:45 - 15:30',
-            '15:30 - 16:15',
-            '16:15 - 17:00',
-            '17:00 - 17:45',
-            '17:45 - 18:30',
-        ]);
+        expect(result).toEqual(['17:35 - 18:20', '19:50 - 20:35']);
     });
 });

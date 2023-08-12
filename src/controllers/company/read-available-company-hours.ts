@@ -10,12 +10,14 @@ export class ReadAvailableCompanyHoursController implements IController {
         try {
             const id = Number(req.params.id);
             const date = req.query.date as string;
-            const procedureId = Number(req.query.procedureId);
+            const procedureId = 1;
 
             const availableHours = await this._readAvailableCompanyHoursUseCase.execute(id, date, procedureId);
 
             return { body: availableHours };
         } catch (error) {
+            console.log(error);
+
             return {
                 status: 500,
                 body: 'Internal Server Error',

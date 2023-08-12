@@ -19,4 +19,12 @@ export class Scheduling extends Entity<ISchedulingProps> {
     constructor(props: ISchedulingProps, id?: number) {
         super(props, id);
     }
+
+    get startDate(): Date {
+        return this.props.startDate;
+    }
+
+    get endDate(): Date {
+        return this.props.endDate;
+    }
 }
