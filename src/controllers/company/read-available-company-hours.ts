@@ -10,13 +10,14 @@ export class ReadAvailableCompanyHoursController implements IController {
         try {
             const id = Number(req.params.id);
             const date = req.query.date as string;
+            const timezone = req.query.timezone;
             const procedureId = 1;
 
             const availableHours = await this._readAvailableCompanyHoursUseCase.execute({
                 companyId: id,
                 scheduleDate: date,
                 procedureId,
-                timezone: 'America/Sao_Paulo',
+                timezone,
             });
 
             return { body: availableHours };
