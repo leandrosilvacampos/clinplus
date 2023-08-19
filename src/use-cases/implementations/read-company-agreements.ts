@@ -1,8 +1,8 @@
-import { IAgreementDTO } from '@/interfaces/agreements';
-import { IReadAgreementsUseCase } from '../read-agreements';
+import { IAgreementDTO } from '@/interfaces/agreement';
+import { IReadCompanyAgreementsUseCase } from '../read-company-agreements';
 import { IAgreementRepository } from '@/repositories/agreements';
 
-export class ReadAgreementsUseCase implements IReadAgreementsUseCase {
+export class ReadCompanyAgreementsUseCase implements IReadCompanyAgreementsUseCase {
     constructor(private readonly _agreementRepository: IAgreementRepository) {}
 
     async execute(companyId: number): Promise<IAgreementDTO[]> {

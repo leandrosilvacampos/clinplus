@@ -28,5 +28,6 @@
 
         /* Completeness */
         "skipLibCheck": true
-    }
+    },
+    "include": ["**", "./vite.config.ts"]
 }
