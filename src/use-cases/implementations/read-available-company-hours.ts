@@ -12,7 +12,7 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
         private readonly _schedulingRepository: ISchedulingRepository
     ) {}
 
-    async execute({ companyId, procedureId, scheduleDate, timezone }: IReadAvailableCompanyHoursUseCaseParams): Promise<string[]> {
+    async execute({ companyId, procedureId, date, timezone }: IReadAvailableCompanyHoursUseCaseParams): Promise<string[]> {
         const companySchedules: Scheduling[] = await this._schedulingRepository.readByCompanyId(companyId);
         const procedure: Procedure | null = await this._procedureRepository.readById(procedureId);
 
@@ -20,22 +20,16 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
             throw new Error('Procedure not found');
         }
 
-        this._checkDate(scheduleDate);
+        this._checkDate(date);
 
         const now = new Date();
 
-        const startOfWorkingHours = new Date(`${scheduleDate}T11:00:00.000Z`);
-        const endOfWorkingHours = new Date(`${scheduleDate}T21:00:00.000Z`);
+        const startOfWorkingHours = new Date(`${date}T11:00:00.000Z`);
+        const endOfWorkingHours = new Date(`${date}T21:00:00.000Z`);
 
         const gapInMinutes = 5;
 
-        console.log('startOfWorkingHours', startOfWorkingHours);
-        console.log('endOfWorkingHours', endOfWorkingHours);
-        console.log('now', now);
-
         const baseData = now < startOfWorkingHours ? startOfWorkingHours : now;
-
-        console.log('baseData', baseData);
 
         const busyIntervals: { start: Date; end: Date }[] = companySchedules.map((schedule) => ({
             start: schedule.startDate,
@@ -69,10 +63,6 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
             const endTime = format(utcToZonedTime(interval.end, timezone), 'HH:mm');
             return `${startTime} - ${endTime}`;
         });
-
-        console.log('busyIntervals', busyIntervals);
-        console.log('possibleIntervals', possibleIntervals);
-        console.log('availableIntervals', availableIntervals);
 
         return formattedAvailableIntervals;
     }

@@ -22,6 +22,7 @@ const makeSut = (): ISut => {
     const schedulingRepository: ISchedulingRepository = {
         read: vi.fn(),
         readByCompanyId: vi.fn(),
+        create: vi.fn(),
     };
 
     const sut = new ReadAvailableCompanyHoursUseCase(procedureRepository, schedulingRepository);
@@ -77,7 +78,7 @@ describe('ReadAvailableCompanyHoursUseCase', () => {
             ),
         ]);
 
-        const result = await sut.execute({ companyId: 1, procedureId: 1, scheduleDate: '2023-08-12', timezone: 'UTC' });
+        const result = await sut.execute({ companyId: 1, procedureId: 1, date: '2023-08-12', timezone: 'UTC' });
 
         expect(result).toEqual(['16:35 - 17:05', '17:10 - 17:40', '17:45 - 18:15', '19:30 - 20:00', '20:05 - 20:35']);
     });

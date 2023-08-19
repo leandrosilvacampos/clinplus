@@ -2,6 +2,6 @@ import { ReadPaymentMethodsController } from '@/controllers/payment-method/read-
 import express from 'express';
 const router = express.Router();
 
-router.get('/', new ReadPaymentMethodsController().handle);
+router.get('/:companyId/payment-methods', new ReadPaymentMethodsController().handle);
 
 export default router;

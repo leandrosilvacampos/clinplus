@@ -15,15 +15,13 @@ export class ReadAvailableCompanyHoursController implements IController {
 
             const availableHours = await this._readAvailableCompanyHoursUseCase.execute({
                 companyId: id,
-                scheduleDate: date,
+                date: date,
                 procedureId,
                 timezone,
             });
 
             return { body: availableHours };
         } catch (error) {
-            console.log(error);
-
             return {
                 status: 500,
                 body: 'Internal Server Error',

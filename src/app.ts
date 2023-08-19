@@ -13,7 +13,7 @@ import scheduleRouter from './routes/schedule';
 dataSource
     .initialize()
     .then(() => {
-        console.log('Database has been initialized!');
+        console.info('Database has been initialized!');
     })
     .catch((err) => {
         console.error('Error during Database initialization:', err);
@@ -21,19 +21,16 @@ dataSource
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: ['http://localhost', 'http://localhost:4200'] }));
 
 app.use(express.json());
 
-app.use('/agreements', agreementRouter);
-app.use('/companies', companyRouter);
-app.use('/payment-methods', paymentMethodRouter);
-app.use('/schedules', scheduleRouter);
+app.use('/companies', [companyRouter, agreementRouter, scheduleRouter, paymentMethodRouter]);
 
 app.get('/', function (req: Request, res: Response) {
     res.json({ ip: req.ip, message: 'Hello World' });
 });
 
 app.listen(apiConfig.port, () => {
-    console.log('SERVER IS UP ON PORT:', apiConfig.port);
+    console.info('SERVER IS UP ON PORT:', apiConfig.port);
 });

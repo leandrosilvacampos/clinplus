@@ -1,7 +1,8 @@
-import { CreateScheduleController } from '@/controllers/schedule/create-schedule';
+import { adaptRoute } from '@/adapters/express-route';
+import { makeCreateScheduleController } from '@/factories/controllers/create-schedule';
 import express from 'express';
 const router = express.Router();
 
-router.post('/', new CreateScheduleController().handle);
+router.post('/:companyId/schedules', adaptRoute(makeCreateScheduleController()));
 
 export default router;

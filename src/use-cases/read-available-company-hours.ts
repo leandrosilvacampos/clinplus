@@ -5,6 +5,6 @@ export interface IReadAvailableCompanyHoursUseCase {
 export interface IReadAvailableCompanyHoursUseCaseParams {
     companyId: number;
     procedureId: number;
-    scheduleDate: string;
+    date: string;
     timezone: string;
 }

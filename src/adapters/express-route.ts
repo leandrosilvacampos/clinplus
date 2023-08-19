@@ -13,6 +13,8 @@ export const adaptRoute = (controller: IController) => {
                 query: expressRequestObj.query,
             };
 
+            console.log('expressRequestObj.params: ', expressRequestObj.params);
+
             const httpResponse: IResponse = await controller.handle(request);
 
             expressResponseObj.status(httpResponse.status || 200).json(httpResponse.body);

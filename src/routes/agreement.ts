@@ -1,7 +1,8 @@
-import { ReadAgreementsController } from '@/controllers/agreement/read-agreements';
+import { adaptRoute } from '@/adapters/express-route';
+import { makeReadAgreementsController } from '@/factories/controllers/read-agreements';
 import express from 'express';
 const router = express.Router();
 
-router.get('/', new ReadAgreementsController().handle);
+router.get('/:companyId/agreements', adaptRoute(makeReadAgreementsController()));
 
 export default router;
