@@ -7,7 +7,7 @@
 
         /* Modules */
         "module": "commonjs",
-        "rootDir": "./src",
+        "rootDir": "./",
         "moduleResolution": "Node",
         "resolveJsonModule": true,
         "paths": {
@@ -28,6 +28,5 @@
 
         /* Completeness */
         "skipLibCheck": true
-    },
-    "include": ["**", "./vite.config.ts"]
+    }
 }
