@@ -1,13 +1,38 @@
 import { dataSource } from '@/data/type-orm/config/data-source';
 import { SchedulingEntity } from '@/data/type-orm/entities/scheduling';
+import { Procedure } from '@/entities/procedure';
 import { Scheduling } from '@/entities/scheduling';
 import { ICreateScheduleRepositoryDTO } from '@/interfaces/scheduling';
 import { ISchedulingRepository } from '@/repositories/scheduling';
 import { Repository } from 'typeorm';
 
 export class TypeORMSchedulingRepository implements ISchedulingRepository {
-    create(scheduling: ICreateScheduleRepositoryDTO): Promise<Scheduling> {
-        throw new Error('Method not implemented.' + scheduling);
+    async create(scheduling: ICreateScheduleRepositoryDTO): Promise<Scheduling> {
+        const schedulingRepository: Repository<SchedulingEntity> = dataSource.getRepository(SchedulingEntity);
+
+        const createdSchedule = await schedulingRepository.save(scheduling);
+
+        const mappedSchedule = new Scheduling(
+            {
+                startDate: createdSchedule.startDate,
+                endDate: createdSchedule.endDate,
+                procedures: createdSchedule.procedures?.map(
+                    (procedure) =>
+                        new Procedure(
+                            {
+                                name: procedure.name,
+                                durationTimeUnit: procedure.durationTimeUnit,
+                                durationTime: procedure.durationTime,
+                                type: procedure.type,
+                            },
+                            procedure.id
+                        )
+                ),
+            },
+            createdSchedule.id
+        );
+
+        return mappedSchedule;
     }
     async read(): Promise<Scheduling[]> {
         const schedulingRepository: Repository<SchedulingEntity> = dataSource.getRepository(SchedulingEntity);

@@ -14,7 +14,7 @@ export class CreateScheduleUseCase implements ICreateScheduleUseCase {
 
     async execute({
         companyId,
-        paymentId,
+        paymentMethodId,
         agreementId,
         procedureId,
         reason,
@@ -41,7 +41,7 @@ export class CreateScheduleUseCase implements ICreateScheduleUseCase {
 
         const scheduling = await this._schedulingRepository.create({
             companyId,
-            paymentId,
+            paymentMethodId,
             agreementId,
             procedureId,
             reason,

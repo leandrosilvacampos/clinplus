@@ -8,11 +8,14 @@ export class CreateScheduleController implements IController {
 
     async handle(req: IRequest): Promise<IResponse> {
         try {
-            const { companyId, paymentId, agreementId, procedureId, reason, date, time, timezone } = req.body;
+            const { paymentMethodId, agreementId, reason, date, time, timezone } = req.body;
+
+            const companyId = Number(req.params.companyId);
+            const procedureId = 1;
 
             const scheduling = await this._createScheduleUseCase.execute({
                 companyId,
-                paymentId,
+                paymentMethodId,
                 agreementId,
                 procedureId,
                 reason,
@@ -26,6 +29,8 @@ export class CreateScheduleController implements IController {
                 body: scheduling,
             };
         } catch (error) {
+            console.log(error);
+
             return {
                 status: 500,
                 body: 'Internal Server Error',
