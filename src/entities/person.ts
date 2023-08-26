@@ -21,4 +21,24 @@ export class Person extends Entity<IPersonProps> {
     constructor(props: IPersonProps, id?: number) {
         super(props, id);
     }
+
+    get name(): string | null | undefined {
+        return this.props.name;
+    }
+
+    get companyName(): string | null | undefined {
+        return this.props.companyName;
+    }
+
+    get fantasyName(): string | null | undefined {
+        return this.props.fantasyName;
+    }
+
+    get type(): 'individual' | 'company' | undefined {
+        return this.props.type;
+    }
+
+    get email(): string | undefined {
+        return this.props.email;
+    }
 }

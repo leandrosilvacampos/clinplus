@@ -14,4 +14,8 @@ export class User extends Entity<IUserProps> {
     get password(): string {
         return this.props.password;
     }
+
+    get person(): Person | undefined {
+        return this.props.person;
+    }
 }

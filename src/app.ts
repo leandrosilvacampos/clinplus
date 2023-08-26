@@ -1,4 +1,5 @@
 import express from 'express';
+import 'dotenv/config';
 import { Request, Response } from 'express';
 import { dataSource } from './data/type-orm/config/data-source';
 import apiConfig from './config/api.json';
@@ -29,8 +30,9 @@ app.use(express.json());
 app.use('/companies', [companyRouter, companyAgreementRouter, companyPaymentMethodRouter, scheduleRouter]);
 app.use('/users', userRouter);
 
-app.get('/', function (req: Request, res: Response) {
-    res.json({ ip: req.ip, message: 'Hello World' });
+app.use((err: Error, req: Request, res: Response) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
 });
 
 app.listen(apiConfig.port, () => {
