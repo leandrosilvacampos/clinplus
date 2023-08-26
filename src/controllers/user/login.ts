@@ -8,7 +8,10 @@ export class LoginController implements IController {
 
     async handle(req: IRequest): Promise<IResponse> {
         try {
-            await this._loginUseCase.execute(req.body);
+            await this._loginUseCase.execute({
+                email: req.body.email,
+                password: req.body.password,
+            });
 
             return {
                 status: 200,
