@@ -1,6 +1,5 @@
 import express from 'express';
 import 'dotenv/config';
-import { Request, Response } from 'express';
 import { dataSource } from './data/type-orm/config/data-source';
 import apiConfig from './config/api.json';
 import cors from 'cors';
@@ -29,11 +28,6 @@ app.use(express.json());
 
 app.use('/companies', [companyRouter, companyAgreementRouter, companyPaymentMethodRouter, scheduleRouter]);
 app.use('/users', userRouter);
-
-app.use((err: Error, req: Request, res: Response) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
 
 app.listen(apiConfig.port, () => {
     console.info('SERVER IS UP ON PORT:', apiConfig.port);

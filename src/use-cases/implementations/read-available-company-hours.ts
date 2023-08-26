@@ -55,7 +55,14 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
         }
 
         const availableIntervals: { start: Date; end: Date }[] = possibleIntervals.filter(
-            (interval) => !busyIntervals.some((busyInterval) => areIntervalsOverlapping(interval, busyInterval))
+            (interval) =>
+                !busyIntervals.some((busyInterval) => {
+                    try {
+                        return areIntervalsOverlapping(interval, busyInterval);
+                    } catch (error) {
+                        return false;
+                    }
+                })
         );
 
         const formattedAvailableIntervals = availableIntervals.map((interval) => {

@@ -10,24 +10,17 @@ export class ReadCompaniesController implements IController {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async handle(req: IRequest): Promise<IResponse> {
-        try {
-            const companies: Company[] = await this._companyRepository.read();
+        const companies: Company[] = await this._companyRepository.read();
 
-            const mappedCompanies: ICompanyDTO[] = companies.map((company: Company) => ({
-                id: company.id as number,
-                fantasyName: company.fantasyName,
-                companyName: company.companyName,
-            }));
+        const mappedCompanies: ICompanyDTO[] = companies.map((company: Company) => ({
+            id: company.id as number,
+            fantasyName: company.fantasyName,
+            companyName: company.companyName,
+        }));
 
-            return {
-                status: 200,
-                body: mappedCompanies,
-            };
-        } catch (error) {
-            return {
-                status: 500,
-                body: 'Internal Server Error',
-            };
-        }
+        return {
+            status: 200,
+            body: mappedCompanies,
+        };
     }
 }
