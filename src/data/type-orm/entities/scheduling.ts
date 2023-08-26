@@ -5,6 +5,7 @@ import { AgreementEntity } from './agreement';
 import { CompanyEntity } from './company';
 import { DoctorEntity } from './doctor';
 import { PatientEntity } from './patient';
+import { PaymentMethodEntity } from './payment-method';
 
 @Entity('scheduling')
 export class SchedulingEntity extends BaseEntity {
@@ -17,6 +18,10 @@ export class SchedulingEntity extends BaseEntity {
     @ManyToMany(() => ProcedureEntity, (procedure) => procedure.schedules)
     @JoinTable({ name: 'schedulingProcedure' })
     procedures: ProcedureEntity[];
+
+    @ManyToMany(() => PaymentMethodEntity, (paymentMethod) => paymentMethod.schedules)
+    @JoinTable({ name: 'schedulePaymentMethod' })
+    paymentMethods: PaymentMethodEntity[];
 
     @ManyToOne(() => AgreementEntity, (agreement) => agreement.schedules)
     agreement: AgreementEntity;

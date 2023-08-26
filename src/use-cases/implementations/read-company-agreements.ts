@@ -1,6 +1,6 @@
 import { IAgreementDTO } from '@/interfaces/agreement';
 import { IReadCompanyAgreementsUseCase } from '../read-company-agreements';
-import { IAgreementRepository } from '@/repositories/agreements';
+import { IAgreementRepository } from '@/repositories/agreement';
 
 export class ReadCompanyAgreementsUseCase implements IReadCompanyAgreementsUseCase {
     constructor(private readonly _agreementRepository: IAgreementRepository) {}

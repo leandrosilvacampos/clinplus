@@ -1,4 +1,4 @@
-import { IAgreementRepository } from '@/repositories/agreements';
+import { IAgreementRepository } from '@/repositories/agreement';
 import { TypeORMAgreementRepository } from '@/repositories/implementations/type-orm/agreement';
 
 export const makeAgreementRepository = (): IAgreementRepository => {

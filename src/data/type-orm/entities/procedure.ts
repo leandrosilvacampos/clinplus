@@ -25,13 +25,13 @@ export class ProcedureEntity extends BaseEntity {
     type: 'consultation' | 'exam';
 
     @ManyToOne(() => CompanyEntity, (company) => company.procedures)
-    company?: CompanyEntity;
+    company: CompanyEntity;
 
     @ManyToOne(() => ExamModalityEntity, (examModality) => examModality.exams)
-    examModality?: ExamModalityEntity | null;
+    examModality: ExamModalityEntity | null;
 
     @ManyToMany(() => SchedulingEntity, (scheduling) => scheduling.procedures)
-    schedules?: SchedulingEntity[];
+    schedules: SchedulingEntity[];
 
     @Column({ type: 'decimal', precision: 10, scale: 2 })
     price: number;

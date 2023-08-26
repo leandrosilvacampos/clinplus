@@ -13,6 +13,7 @@ export interface ISchedulingProps {
     company?: Company;
     doctor?: Doctor;
     patient?: Patient;
+    reason?: string;
 }
 
 export class Scheduling extends Entity<ISchedulingProps> {

@@ -1,4 +1,4 @@
-import { IAgreementRepository } from '@/repositories/agreements';
+import { IAgreementRepository } from '@/repositories/agreement';
 import { ReadCompanyAgreementsUseCase } from '@/use-cases/implementations/read-company-agreements';
 import { IReadCompanyAgreementsUseCase } from '@/use-cases/read-company-agreements';
 import { makeAgreementRepository } from '../repositories/agreement';

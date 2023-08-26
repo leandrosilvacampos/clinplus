@@ -3,7 +3,6 @@ import { Person } from './person';
 
 export interface IUserProps {
     password: string;
-    personId: number;
     person?: Person;
 }
 

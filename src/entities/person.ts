@@ -5,16 +5,16 @@ export interface IPersonProps {
     companyName?: string | null;
     fantasyName?: string | null;
     type: 'individual' | 'company';
-    dateOfBirth: string;
-    gender: 'male' | 'female' | 'other';
+    dateOfBirth?: string;
+    gender?: 'male' | 'female' | 'other';
     taxDocument: string;
     email: string;
-    cellPhone: string;
-    streetAddress: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    district: string;
+    cellPhone?: string;
+    streetAddress?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    district?: string;
 }
 
 export class Person extends Entity<IPersonProps> {

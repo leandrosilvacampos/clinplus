@@ -1,7 +1,7 @@
 import { dataSource } from '@/data/type-orm/config/data-source';
 import { AgreementEntity } from '@/data/type-orm/entities/agreement';
 import { Agreement } from '@/entities/agreement';
-import { IAgreementRepository } from '@/repositories/agreements';
+import { IAgreementRepository } from '@/repositories/agreement';
 
 import { Repository } from 'typeorm';
 
