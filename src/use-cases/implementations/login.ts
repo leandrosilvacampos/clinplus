@@ -22,10 +22,20 @@ export class LoginUseCase implements ILoginUseCase {
             throw new Error('Invalid password');
         }
 
-        const accessToken = sign({ id: user.id, email: user.person?.email }, process.env.JWT_SECRET as string, {
+        const accessToken = sign({ id: user.id, name: this._getName(user), email: user.person?.email }, process.env.JWT_SECRET as string, {
             expiresIn: '1d',
         });
 
         return accessToken;
+    }
+
+    private _getName(user: User): string {
+        const type = user.person?.type;
+
+        if (type === 'individual') {
+            return user.person?.name || '';
+        } else {
+            return user.person?.fantasyName || '';
+        }
     }
 }
