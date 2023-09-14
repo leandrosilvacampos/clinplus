@@ -14,7 +14,7 @@ export const adaptMiddleware = (middleware: IMiddleware) => {
 
             if (response.status === 200) {
                 if (response.data) {
-                    Object.assign((expressRequestObj as any)['data'], response.data);
+                    Object.assign((expressRequestObj as any)['data'] || {}, response.data);
                 }
 
                 next();

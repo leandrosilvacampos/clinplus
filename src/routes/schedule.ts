@@ -5,6 +5,9 @@ import { makeAuthMiddleware } from '@/factories/middlewares/auth';
 import express from 'express';
 const router = express.Router();
 
-router.post('/:companyId/schedules', adaptMiddleware(makeAuthMiddleware()), adaptRoute(makeCreateScheduleController()));
+router
+    .route('/:companyId/schedules')
+    .post(adaptMiddleware(makeAuthMiddleware()), adaptRoute(makeCreateScheduleController()))
+    .get(adaptMiddleware(makeAuthMiddleware()), adaptRoute(makeCreateScheduleController()));
 
 export default router;
