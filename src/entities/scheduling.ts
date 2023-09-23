@@ -28,4 +28,12 @@ export class Scheduling extends Entity<ISchedulingProps> {
     get endDate(): Date {
         return this.props.endDate;
     }
+
+    get procedures(): Procedure[] | undefined {
+        return this.props.procedures;
+    }
+
+    get company(): Company | undefined {
+        return this.props.company;
+    }
 }

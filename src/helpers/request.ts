@@ -5,7 +5,7 @@ import { Request } from 'express';
 
 export const RequestHelper = {
     parseExpressRequest(req: Request): IRequest {
-        const { method, cookies, params, body, query, headers, user } = <any>req;
+        const { method, cookies, params, body, query, headers, data } = <any>req;
 
         const httpRequest: IRequest = {
             method,
@@ -14,7 +14,7 @@ export const RequestHelper = {
             body,
             query,
             headers,
-            user,
+            data,
         };
 
         return httpRequest;

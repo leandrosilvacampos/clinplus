@@ -11,12 +11,14 @@ export class CreateScheduleController implements IController {
 
         const companyId = Number(req.params.companyId);
         const procedureId = 1;
+        const userId: number = req.data.user.id;
 
         const scheduling = await this._createScheduleUseCase.execute({
             companyId,
             paymentMethodId,
             agreementId,
             procedureId,
+            userId,
             reason,
             date,
             time,

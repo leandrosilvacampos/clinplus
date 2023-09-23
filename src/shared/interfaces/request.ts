@@ -6,5 +6,5 @@ export interface IRequest {
     query?: any;
     headers?: any;
     cookies?: any;
-    user?: any;
+    data?: any;
 }
