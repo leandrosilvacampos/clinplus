@@ -68,6 +68,7 @@ export class TypeORMSchedulingRepository implements ISchedulingRepository {
             {
                 startDate: createdSchedule.startDate,
                 endDate: createdSchedule.endDate,
+                status: createdSchedule.status,
                 reason: createdSchedule.reason,
             },
             createdSchedule.id
@@ -85,6 +86,7 @@ export class TypeORMSchedulingRepository implements ISchedulingRepository {
                 {
                     startDate: scheduling.startDate,
                     endDate: scheduling.endDate,
+                    status: scheduling.status,
                 },
                 scheduling.id
             );
@@ -107,6 +109,7 @@ export class TypeORMSchedulingRepository implements ISchedulingRepository {
         const mappedSchedules = schedules.map((scheduling) => {
             return new Scheduling(
                 {
+                    status: scheduling.status,
                     startDate: scheduling.startDate,
                     endDate: scheduling.endDate,
                 },
@@ -154,6 +157,7 @@ export class TypeORMSchedulingRepository implements ISchedulingRepository {
                 {
                     startDate: scheduling.startDate,
                     endDate: scheduling.endDate,
+                    status: scheduling.status,
                     company: new Company(
                         {
                             companyName: scheduling.company.companyName,

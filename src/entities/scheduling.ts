@@ -8,6 +8,7 @@ import { Procedure } from './procedure';
 export interface ISchedulingProps {
     startDate: Date;
     endDate: Date;
+    status: 'scheduled' | 'completed' | 'canceled';
     procedures?: Procedure[];
     agreement?: Agreement;
     company?: Company;
@@ -35,5 +36,9 @@ export class Scheduling extends Entity<ISchedulingProps> {
 
     get company(): Company | undefined {
         return this.props.company;
+    }
+
+    get status(): 'scheduled' | 'completed' | 'canceled' {
+        return this.props.status;
     }
 }

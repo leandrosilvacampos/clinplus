@@ -22,7 +22,9 @@ export interface ICreateScheduleUseCaseDTO {
 }
 
 export interface ISchedulingDTO {
-    date: string;
+    id: number | string;
+    startDate: string;
+    endDate: string;
     status: string;
     procedures: string[];
     company: string;

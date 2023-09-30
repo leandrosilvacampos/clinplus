@@ -15,6 +15,9 @@ export class SchedulingEntity extends BaseEntity {
     @Column()
     endDate: Date;
 
+    @Column({ type: 'enum', enum: ['scheduled', 'completed', 'canceled'], default: 'scheduled' })
+    status: 'scheduled' | 'completed' | 'canceled';
+
     @ManyToMany(() => ProcedureEntity, (procedure) => procedure.schedules)
     @JoinTable({ name: 'schedulingProcedure' })
     procedures: ProcedureEntity[];

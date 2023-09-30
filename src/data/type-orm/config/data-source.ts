@@ -10,5 +10,5 @@ export const dataSource = new DataSource({
     database: 'clinplus',
     entities: [path.join(__dirname, '..', 'entities/*.ts')],
     logging: false,
-    synchronize: false,
+    synchronize: true,
 });
