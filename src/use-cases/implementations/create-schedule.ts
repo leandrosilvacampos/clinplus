@@ -34,7 +34,7 @@ export class CreateScheduleUseCase implements ICreateScheduleUseCase {
             throw new Error('This hour is not available');
         }
 
-        const splittedTime = time.split(':');
+        const splittedTime = time.replace(/\s/g, '').split('-');
 
         const startDate: Date = zonedTimeToUtc(`${date} ${splittedTime[0]}:00`, timezone);
 
