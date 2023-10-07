@@ -60,6 +60,9 @@ export class TypeORMSchedulingRepository implements ISchedulingRepository {
             patient: {
                 id: patient.id,
             },
+            doctor: {
+                id: scheduling.doctorId,
+            },
             procedures: [{ id: scheduling.procedureId }],
             paymentMethods: [{ id: scheduling.paymentMethodId }],
         });

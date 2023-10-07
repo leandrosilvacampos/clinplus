@@ -2,6 +2,7 @@ export interface ICreateScheduleRepositoryDTO {
     companyId: number;
     procedureId: number;
     agreementId: number;
+    doctorId: number;
     paymentMethodId: number;
     userId: number;
     startDate: Date;
@@ -14,6 +15,7 @@ export interface ICreateScheduleUseCaseDTO {
     procedureId: number;
     agreementId: number;
     paymentMethodId: number;
+    doctorId: number;
     userId: number;
     date: string;
     time: string;
