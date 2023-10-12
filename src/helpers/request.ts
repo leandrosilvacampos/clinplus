@@ -5,10 +5,12 @@ import { Request } from 'express';
 
 export const RequestHelper = {
     parseExpressRequest(req: Request): IRequest {
-        const { method, cookies, params, body, query, headers, data } = <any>req;
+        const { method, cookies, params, body, query, headers, data, baseUrl, route } = <any>req;
 
         const httpRequest: IRequest = {
             method,
+            baseUrl,
+            routePath: route.path,
             cookies,
             params,
             body,

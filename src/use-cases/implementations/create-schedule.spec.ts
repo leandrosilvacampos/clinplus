@@ -2,7 +2,6 @@ import { it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 import { ISchedulingRepository } from '@/repositories/scheduling';
 import { describe } from 'node:test';
-import { Scheduling } from '@/entities/scheduling';
 import { ICreateScheduleUseCase } from '../create-schedule';
 import { CreateScheduleUseCase } from './create-schedule';
 import { IReadAvailableCompanyHoursUseCase } from '../read-available-company-hours';
