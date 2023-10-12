@@ -22,14 +22,12 @@ export class ReadAvailableCompanyHoursUseCase implements IReadAvailableCompanyHo
 
         this._checkDate(date);
 
-        const now = new Date();
-
         const startOfWorkingHours = new Date(`${date}T11:00:00.000Z`);
         const endOfWorkingHours = new Date(`${date}T21:00:00.000Z`);
 
         const gapInMinutes = 5;
 
-        const baseData = now < startOfWorkingHours ? startOfWorkingHours : now;
+        const baseData = startOfWorkingHours;
 
         const busyIntervals: { start: Date; end: Date }[] = companySchedules.map((schedule) => ({
             start: schedule.startDate,
