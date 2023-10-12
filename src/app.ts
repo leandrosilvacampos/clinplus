@@ -3,13 +3,12 @@ import 'dotenv/config';
 import { dataSource } from './data/type-orm/config/data-source';
 import apiConfig from './config/api.json';
 import cors from 'cors';
-
-//Routes import
 import companyAgreementRouter from './routes/company-agreement';
 import companyRouter from './routes/company';
 import companyPaymentMethodRouter from './routes/company-payment-method';
 import scheduleRouter from './routes/schedule';
 import userRouter from './routes/user';
+import helmet from 'helmet';
 
 dataSource
     .initialize()
@@ -21,6 +20,8 @@ dataSource
     });
 
 const app = express();
+
+app.use(helmet());
 
 app.use(cors({ origin: ['http://localhost', 'http://localhost:4200'] }));
 
