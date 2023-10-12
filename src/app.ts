@@ -23,7 +23,7 @@ const app = express();
 
 app.use(helmet());
 
-app.use(cors({ origin: ['http://localhost', 'http://localhost:4200'] }));
+app.use(cors({ origin: ['http://localhost', 'http://localhost:4200', 'http://35.239.141.210', 'http://35.239.141.210:4200'] }));
 
 app.use(express.json());
 
